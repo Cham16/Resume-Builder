@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://unpkg.com/docx-preview@0.3.0/dist/docx-preview.min.js"></script>
 </head>
 <body>
 
@@ -99,20 +101,27 @@
         <div class="field-group">
           <label for="certUpload">Upload a certificate</label>
           <div class="upload-row">
-            <input type="file" id="certUpload" accept=".pdf,.jpg,.jpeg,.png" multiple>
+            <input type="file" id="certUpload" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" multiple>
             <label for="certUpload" class="upload-btn">Choose file(s)</label>
             <span class="upload-hint" id="uploadHint">No file chosen</span>
           </div>
         </div>
 
         <div class="field-group">
-          <label for="certList">Uploaded certificates</label>
-          <select id="certList" size="4"></select>
+          <label>Uploaded certificates <span class="optional">(click a file to preview it)</span></label>
+          <ul class="cert-chip-list" id="certChipList">
+            <li class="empty-row">No certificates uploaded yet</li>
+          </ul>
           <div class="cert-actions">
             <span class="cert-count" id="certCount">0 certificates added</span>
-            <button type="button" id="removeCertBtn" class="ghost-btn">Remove selected</button>
           </div>
         </div>
+
+        <div class="field-group viewer-group" id="viewerGroup" hidden>
+          <label>Preview — <span id="viewerFileName"></span></label>
+          <div class="viewer-box" id="viewerBox"></div>
+        </div>
+
 
         <div class="field-group">
           <label for="skills">Key skills <span class="optional">(comma separated)</span></label>
@@ -120,9 +129,11 @@
         </div>
 
         <div class="actions">
-          <button type="button" id="printBtn" class="primary-btn">Print / Save as PDF</button>
+          <button type="button" id="downloadBtn" class="primary-btn">Download PDF</button>
+          <button type="button" id="saveCloudBtn" class="ghost-btn">Save to cloud</button>
           <button type="button" id="resetBtn" class="ghost-btn">Clear form</button>
         </div>
+        <p class="save-status" id="saveStatus"></p>
       </form>
     </section>
 

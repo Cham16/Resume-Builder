@@ -287,6 +287,128 @@ input[type="file"] {
 }
 .ghost-btn:hover { border-color: var(--ink); }
 
+.save-status {
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--slate);
+  word-break: break-all;
+}
+
+.save-status.status-error { color: var(--red); }
+
+/* Certificate chip list */
+.cert-chip-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cert-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  background: var(--parchment);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 13.5px;
+  transition: background 0.15s ease;
+}
+
+.cert-chip:hover { background: #F2ECDA; }
+
+.cert-chip.active {
+  border-left-color: var(--ink);
+  background: #F2ECDA;
+}
+
+.cert-chip .chip-icon {
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.cert-chip .chip-name {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+
+.cert-chip .chip-remove {
+  background: none;
+  border: none;
+  color: var(--slate);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.cert-chip .chip-remove:hover {
+  color: var(--red);
+  background: rgba(162, 75, 63, 0.1);
+}
+
+.cert-chip-list .empty-row {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--slate);
+  padding: 8px 2px;
+}
+
+/* Viewer panel */
+.viewer-group label {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+}
+
+#viewerFileName {
+  text-transform: none;
+  font-weight: 400;
+  color: var(--slate);
+  letter-spacing: 0;
+  font-size: 12.5px;
+}
+
+.viewer-box {
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: #fff;
+  min-height: 120px;
+  max-height: 480px;
+  overflow: auto;
+  padding: 4px;
+}
+
+.viewer-box img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.viewer-box iframe {
+  width: 100%;
+  height: 460px;
+  border: none;
+}
+
+.viewer-box .viewer-fallback {
+  padding: 20px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--slate);
+}
+
+.viewer-box .viewer-fallback a {
+  color: var(--ink);
+  font-weight: 600;
+}
+
 /* ============================================
    DOSSIER (PREVIEW SIDE)
    ============================================ */
