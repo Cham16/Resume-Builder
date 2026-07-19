@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dossier — Academic Resume Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <span class="eyebrow">Student Dossier · No. 001</span>
+    <h1 class="masthead-title">Academic Resume Builder</h1>
+    <p class="masthead-sub">Fill the ledger on the left. Your certified dossier assembles itself on the right.</p>
+  </header>
+
+  <main class="workspace">
+
+    <!-- ============ FORM SIDE ============ -->
+    <section class="ledger" aria-label="Resume details form">
+      <form id="resume-form" novalidate>
+
+        <div class="field-group">
+          <label for="fullName">Full name</label>
+          <input type="text" id="fullName" name="fullName" placeholder="e.g. Aditi Sharma" autocomplete="name">
+        </div>
+
+        <div class="field-group">
+          <label for="rollNumber">Roll number / Enrollment ID</label>
+          <input type="text" id="rollNumber" name="rollNumber" class="mono" placeholder="e.g. 22CS1045" autocomplete="off">
+        </div>
+
+        <div class="field-group">
+          <label for="collegeName">College / University name</label>
+          <input type="text" id="collegeName" name="collegeName" placeholder="e.g. Indian Institute of Technology, Lucknow">
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="course">Course</label>
+            <select id="course" name="course">
+              <option value="" disabled selected>Select a course</option>
+              <optgroup label="Undergraduate (UG)">
+                <option>B.Tech — Bachelor of Technology</option>
+                <option>B.E. — Bachelor of Engineering</option>
+                <option>B.Sc — Bachelor of Science</option>
+                <option>B.Com — Bachelor of Commerce</option>
+                <option>BBA — Bachelor of Business Administration</option>
+                <option>BCA — Bachelor of Computer Applications</option>
+                <option>B.A. — Bachelor of Arts</option>
+                <option>B.Arch — Bachelor of Architecture</option>
+                <option>B.Pharm — Bachelor of Pharmacy</option>
+                <option>BDS — Bachelor of Dental Surgery</option>
+                <option>MBBS — Bachelor of Medicine &amp; Surgery</option>
+                <option>LLB — Bachelor of Laws</option>
+                <option>B.Ed — Bachelor of Education</option>
+                <option>BHM — Bachelor of Hotel Management</option>
+              </optgroup>
+              <optgroup label="Postgraduate (PG)">
+                <option>M.Tech — Master of Technology</option>
+                <option>M.E. — Master of Engineering</option>
+                <option>M.Sc — Master of Science</option>
+                <option>M.Com — Master of Commerce</option>
+                <option>MBA — Master of Business Administration</option>
+                <option>MCA — Master of Computer Applications</option>
+                <option>M.A. — Master of Arts</option>
+                <option>M.Arch — Master of Architecture</option>
+                <option>M.Pharm — Master of Pharmacy</option>
+                <option>MD — Doctor of Medicine</option>
+                <option>MS — Master of Surgery</option>
+                <option>LLM — Master of Laws</option>
+                <option>M.Ed — Master of Education</option>
+                <option>Ph.D — Doctor of Philosophy</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="courseYear">Current year / semester</label>
+            <select id="courseYear" name="courseYear">
+              <option value="" disabled selected>Select year</option>
+              <option>1st Year</option>
+              <option>2nd Year</option>
+              <option>3rd Year</option>
+              <option>4th Year</option>
+              <option>5th Year</option>
+              <option>Final Semester</option>
+              <option>Graduated</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"><span>Certificates</span></div>
+
+        <div class="field-group">
+          <label for="certUpload">Upload a certificate</label>
+          <div class="upload-row">
+            <input type="file" id="certUpload" accept=".pdf,.jpg,.jpeg,.png" multiple>
+            <label for="certUpload" class="upload-btn">Choose file(s)</label>
+            <span class="upload-hint" id="uploadHint">No file chosen</span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="certList">Uploaded certificates</label>
+          <select id="certList" size="4"></select>
+          <div class="cert-actions">
+            <span class="cert-count" id="certCount">0 certificates added</span>
+            <button type="button" id="removeCertBtn" class="ghost-btn">Remove selected</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="skills">Key skills <span class="optional">(comma separated)</span></label>
+          <input type="text" id="skills" name="skills" placeholder="e.g. Python, Public Speaking, AutoCAD">
+        </div>
+
+        <div class="actions">
+          <button type="button" id="printBtn" class="primary-btn">Print / Save as PDF</button>
+          <button type="button" id="resetBtn" class="ghost-btn">Clear form</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ============ PREVIEW SIDE ============ -->
+    <section class="preview-wrap" aria-label="Live resume preview">
+      <div class="dossier" id="dossier">
+
+        <div class="dossier-topline">
+          <span id="pv-college" class="pv-college">Your College Name</span>
+          <span class="pv-doc-id">DOSSIER · <span id="pv-roll-mini">—</span></span>
+        </div>
+
+        <div class="dossier-head">
+          <div class="seal" id="seal">
+            <svg viewBox="0 0 120 120" width="100%" height="100%">
+              <circle cx="60" cy="60" r="56" class="seal-ring-outer"/>
+              <circle cx="60" cy="60" r="46" class="seal-ring-inner"/>
+              <text x="60" y="68" text-anchor="middle" class="seal-initials" id="seal-initials">SD</text>
+              <path id="seal-track" d="M 60 60 m -50, 0 a 50,50 0 1,1 100,0 a 50,50 0 1,1 -100,0" fill="none"/>
+              <text class="seal-motto">
+                <textPath href="#seal-track" startOffset="0%">• ACADEMIC RECORD • VERIFIED DOSSIER </textPath>
+              </text>
+            </svg>
+          </div>
+
+          <div class="dossier-id">
+            <h2 id="pv-name">Full Name</h2>
+            <p class="pv-role" id="pv-course">Course not selected</p>
+            <p class="pv-meta" id="pv-year">Year not selected</p>
+          </div>
+        </div>
+
+        <div class="dossier-strip">
+          <div class="strip-item">
+            <span class="strip-label">Roll Number</span>
+            <span class="strip-value mono" id="pv-roll">—</span>
+          </div>
+          <div class="strip-item">
+            <span class="strip-label">Status</span>
+            <span class="strip-value" id="pv-status">Incomplete</span>
+          </div>
+        </div>
+
+        <div class="dossier-section">
+          <h3>Certificates on File</h3>
+          <ol class="pv-cert-list" id="pv-cert-list">
+            <li class="empty-row">None uploaded yet</li>
+          </ol>
+        </div>
+
+        <div class="dossier-section">
+          <h3>Key Skills</h3>
+          <p class="pv-skills" id="pv-skills">Not provided</p>
+        </div>
+
+        <div class="dossier-foot">
+          <div class="foot-line">
+            <span>Generated</span>
+            <span id="pv-date" class="mono"></span>
+          </div>
+          <div class="foot-signature">
+            <span class="sig-script">Registrar's Office</span>
+            <span class="sig-note">This dossier is self-declared and generated for academic portfolio use.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="page-footer">
+    <span>Built for coursework &amp; placement portfolios — fill, preview, print.</span>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
